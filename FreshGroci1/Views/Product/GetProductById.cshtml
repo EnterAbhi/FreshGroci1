@@ -1,0 +1,46 @@
+﻿@using FreshGroci1.Models;
+@model ProductModel
+@{
+}
+
+<h1>Product Detail Page</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="bd-placeholer-img card-img-top" height="505" src="@Model.Image" alt="" />
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>@Model.Name</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-primary">
+                    <h2 class="text-muted">Price :- @Model.price &#8377;</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="description">
+                        @Model.ShortDescription
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-outline-primary">
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+
+            <hr/>
+
+            <ul class="list-group">
+                <li class="list-group-item"><span class="font-weight-bold">Category - </span> @Model.Category</li>
+                <li class="list-group-item"><span class="font-weight-light">Full Description - </span>@Model.Description</li>
+            </ul>
+        </div>
+    </div>
+</div>

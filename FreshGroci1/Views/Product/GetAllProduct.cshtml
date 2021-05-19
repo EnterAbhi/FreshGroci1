@@ -1,0 +1,34 @@
+﻿@model IEnumerable<FreshGroci1.Models.ProductModel> 
+@{
+}
+<html>
+<head>
+    <meta name="AllProduct" content="width=device-width" />
+    <title>Products</title>
+</head>
+<body>
+    <h1>All Products will show here....</h1>
+    <div class="container">
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card md-4 shadow-sm">
+                        <img class="bd-placeholer-img card-img-top" height="225" src="@product.Image" alt="" />
+                        <div class="card-body">
+                            <h3 class="card-title">@product.Name</h3>
+                            <div class="d-flex justify-content-between align-item-center">
+                                <div class="btn-group">
+                                    <a href="/product/getproductbyid/@product.Id" class="btn btn-outline-primary">View Details</a>
+                                </div>
+                                <h2 class="text-muted">@product.price &#8377;</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</body>
+</html>
