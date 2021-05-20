@@ -31,7 +31,7 @@ namespace FreshGroci1.Controllers
         public ViewResult GetProductById(int id)
         {
             var data = _productData.tbl_Product.Find(id);
-
+            
             return View(data);
         }
     }

@@ -29,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <button class="btn btn-outline-primary">
+                    <button class="btn btn-outline-primary" onclick="addToCart('@Model.Id');">
                         Add to cart
                     </button>
                 </div>
@@ -44,3 +44,17 @@
         </div>
     </div>
 </div>
+<script>
+    function addToCart(id) {
+        var data = new FormData();
+        data.append("id", id);
+        var carthttp = new XMLHttpRequest();
+        var src = '@Url.Action("AddToCart", "Cart")';
+        carthttp.open("POST", src);
+        carthttp.send(data);
+        carthttp.onload = function () {
+            console.log(this.response);
+            cartquantity.innerText = this.response;
+        }
+    }
+</script>
