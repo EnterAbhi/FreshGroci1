@@ -2,10 +2,28 @@
 
 namespace FreshGroci1.Migrations
 {
-    public partial class init : Migration
+    public partial class snehmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "tbl_Product",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    price = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbl_Product", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "tbl_Cart",
                 columns: table => new
@@ -36,6 +54,9 @@ namespace FreshGroci1.Migrations
         {
             migrationBuilder.DropTable(
                 name: "tbl_Cart");
+
+            migrationBuilder.DropTable(
+                name: "tbl_Product");
         }
     }
 }
