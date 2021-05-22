@@ -10,6 +10,7 @@ namespace FreshGroci1.DataBaseContext
         public int Id { get; set; }
         public String Name { get; set; }
         public String Image { get; set; }
+        public String Attributes { get; set; }
         public String ShortDescription { get; set; }
         public String Description { get; set; }
         public String Category { get; set; }

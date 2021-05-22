@@ -12,6 +12,7 @@
         <div class="row">
             @foreach (var product in Model)
             {
+
                 <div class="col-md-4">
                     <div class="card md-4 shadow-sm">
                         <img class="bd-placeholer-img card-img-top" height="225" src="@product.Image" alt="" />
@@ -21,7 +22,21 @@
                                 <div class="btn-group">
                                     <a href="/product/getproductbyid/@product.Id" class="btn btn-outline-primary">View Details</a>
                                 </div>
-                                <h2 class="text-muted">@product.price &#8377;</h2>
+                                @if (product.Attributes == null)
+                                {
+                                    <h2 class="text-muted">@product.price &#8377;</h2>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <button class="btn btn-outline-primary" onclick="addToCart('@product.Id');">
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a href="/product/getproductbyid/@product.Id" class="btn btn-outline-primary">Select Option</a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -30,5 +45,24 @@
 
         </div>
     </div>
+    <script>
+    function updatePrice(price) {
+        pro_price.innerText = "Price :- " + price + " ₹";
+        pro_price.style.display = 'block';
+        pro_price.proprice = price;
+    }
+    function addToCart(id) {
+        var data = new FormData();
+        data.append("id", id);
+        var carthttp = new XMLHttpRequest();
+        var src = '@Url.Action("AddToCart", "Cart")';
+        carthttp.open("POST", src);
+        carthttp.send(data);
+        carthttp.onload = function () {
+            console.log(this.response);
+            cartquantity.innerText = this.response;
+        }
+    }
+    </script>
 </body>
 </html>
