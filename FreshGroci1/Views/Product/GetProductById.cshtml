@@ -16,17 +16,43 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-primary">
-                    <h2 class="text-muted">Price :- @Model.price &#8377;</h2>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12">
                     <p class="description">
                         @Model.ShortDescription
                     </p>
                 </div>
             </div>
+            @if (Model.Attributes != null)
+            {
+                <div class="row">
+                    <div class="container">
+                        <label for="selectattr">Select Option</label>
+                        <select class="form-control" id="selectattr" onChange="updatePrice(this.value)">
+                            @{
+                                string[] attributes = Model.Attributes.Split("|");
+                                string[] prices = Model.price.Split("|");
+                            }
+                            @foreach (var nw in attributes.Zip(prices, Tuple.Create))
+                            {
+                                <option value="@nw.Item2">@nw.Item1</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-primary">
+                        <h2 class="text-muted" id="pro_price" proprice="" style="display:none;">Price :- @Model.price &#8377;</h2>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12 text-primary">
+                        <h2 class="text-muted">Price :- @Model.price &#8377;</h2>
+                    </div>
+                </div>
+            }
             <div class="row">
                 <div class="col-md-4">
                     <button class="btn btn-outline-primary" onclick="addToCart('@Model.Id');">
@@ -35,7 +61,7 @@
                 </div>
             </div>
 
-            <hr/>
+            <hr />
 
             <ul class="list-group">
                 <li class="list-group-item"><span class="font-weight-bold">Category - </span> @Model.Category</li>
@@ -45,9 +71,15 @@
     </div>
 </div>
 <script>
+    function updatePrice(price) {
+        pro_price.innerText = "Price :- " + price + " ₹";
+        pro_price.style.display = 'block';
+        pro_price.proprice = price;
+    }
     function addToCart(id) {
         var data = new FormData();
         data.append("id", id);
+        data.append("price", pro_price.price);
         var carthttp = new XMLHttpRequest();
         var src = '@Url.Action("AddToCart", "Cart")';
         carthttp.open("POST", src);

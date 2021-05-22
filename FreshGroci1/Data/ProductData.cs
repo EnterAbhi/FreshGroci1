@@ -27,6 +27,7 @@ namespace FreshGroci1.Data
                     {
                         Id = product.Id,
                         Name = product.Name,
+                        Attributes = product.Attributes,
                         Image = product.Image,
                         ShortDescription = product.ShortDescription,
                         Description = product.Description,
