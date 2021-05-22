@@ -1,6 +1,7 @@
 ﻿using FreshGroci1.DataBaseContext;
 using FreshGroci1.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,10 @@ namespace FreshGroci1.Controllers
         {
             _productData = productData;
         }
-        public IActionResult Index()
+        public  IActionResult Index()
         {
-            return View();
+            return View(_productData.tbl_Cart.ToList());
         }
-
         [HttpPost]
         public int AddToCart(string id)
         {
@@ -27,7 +27,10 @@ namespace FreshGroci1.Controllers
             var data = _productData.tbl_Product.Find(int.Parse(id));
             var cartmodel = new CartModel()
             {
-                Products = data,
+                ProductId=data.Id,
+                Name = data.Name,
+                Image=data.Image,
+                price=data.price,
                 cartQuantity = count+1
             };
 
@@ -35,6 +38,19 @@ namespace FreshGroci1.Controllers
             _productData.SaveChanges();
             return count+1;
         }
-        
+        public IActionResult DeleteById(int id)
+        {
+
+            var product = _productData.tbl_Cart.Where(x => x.ProductId == id).FirstOrDefault();
+            if (product == null)
+            {
+                return NotFound();
+            }
+            _productData.tbl_Cart.Remove(product);
+            _productData.SaveChanges();
+   
+               return RedirectToAction("Index");
+        }
+
     }
 }
